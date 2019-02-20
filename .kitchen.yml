@@ -21,8 +21,8 @@ suites:
     run_list:
       - recipe[test::shifter_compile]
   - name: shifter runtime
-      run_list:
-        - recipe[test::shifter_install]
+    run_list:
+      - recipe[test::shifter_install]
   - name: shifter image gateway
-      run_list:
-        - recipe[test::shifterimg_install]
+    run_list:
+      - recipe[test::shifterimg_install]
