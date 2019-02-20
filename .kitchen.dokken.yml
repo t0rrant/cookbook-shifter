@@ -42,8 +42,8 @@ platforms:
       intermediate_instructions:
         - RUN /usr/bin/yum install epel-release
   - name: centos-7
-      driver:
-        image: dokken/centos-7
-        pid_one_command: /bin/systemd
-        intermediate_instructions:
-          - RUN /usr/bin/yum install epel-release
+    driver:
+      image: dokken/centos-7
+      pid_one_command: /bin/systemd
+      intermediate_instructions:
+        - RUN /usr/bin/yum install epel-release
