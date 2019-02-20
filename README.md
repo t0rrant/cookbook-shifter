@@ -29,7 +29,7 @@ The following platforms are supported:
 
 ## Usage
 
-Just include ```cookbook '1password', '~> 1.3.0'``` in your Berksfile.
+Just include ```cookbook 'shifter', '~> 0.1.0'``` in your Berksfile.
 
 ## Resources
 
@@ -37,4 +37,4 @@ Just include ```cookbook '1password', '~> 1.3.0'``` in your Berksfile.
 
 ### shifter_install
 
-### shifterimg_install
+### shifter_install_imagegw
