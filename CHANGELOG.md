@@ -11,5 +11,5 @@ Initial release.
 
 ### Added
 
-- 
+- Resources to compile and install shifter, still without configuration files
 

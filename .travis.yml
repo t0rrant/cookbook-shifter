@@ -1,0 +1,39 @@
+sudo: required
+dist: xenial
+
+before_install:
+  - wget https://packages.chef.io/files/stable/chefdk/3.7.23/ubuntu/16.04/chefdk_3.7.23-1_amd64.deb
+  - sudo dpkg -i chefdk_3.7.23-1_amd64.deb
+
+# Don't `bundle install` which takes about 1.5 mins
+install: echo "skip bundle install"
+
+branches:
+  only:
+    - master
+
+services: docker
+
+env:
+  matrix:
+    - INSTANCE=ubuntu-1404
+    - INSTANCE=ubuntu-1604
+    - INSTANCE=ubuntu-1804
+    - INSTANCE=debian-9
+    - INSTANCE=centos-6
+    - INSTANCE=centos-7
+
+before_script:
+  - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )
+  - eval "$(chef shell-init bash)"
+  - chef --version
+  - cookstyle --version
+  - foodcritic --version
+
+script: KITCHEN_LOCAL_YAML=.kitchen.dokken.yml kitchen verify ${INSTANCE}
+
+matrix:
+  include:
+    - script:
+        - chef exec delivery local all
+      env: UNIT_AND_LINT=1
