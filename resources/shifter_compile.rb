@@ -6,46 +6,7 @@ property :with_slurm, [true, false], default: false
 property :slurm_dir, String, default: '/usr'
 property :extract_dir, String, default: '/tmp'
 
-required_packages = value_for_platform(
-  [:ubuntu, :debian] => {
-    'default': %w(
-      unzip
-      libjson-c2
-      libjson-c-dev
-      libmunge2
-      libmunge-dev
-      libcurl4-openssl-dev
-      autoconf
-      automake
-      libtool
-      curl
-      make
-      xfsprogs
-      python-dev
-      libcap-dev
-      wget
-    ),
-  },
-  [:centos, :fedora, :redhat, :suse] => {
-    'default': %w(
-      gcc
-      glibc-devel
-      munge
-      libcurl-devel
-      json-c
-      json-c-devel
-      pam-devel
-      munge-devel
-      libtool
-      autoconf
-      automake
-      gcc-c++
-      xfsprogs
-      python-devel
-      libcap-devel
-    ),
-  }
-)
+include ShifterCookbook::Helpers
 
 action :install do
   required_packages.each(&method(:package))

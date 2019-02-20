@@ -16,7 +16,6 @@ platforms:
   - name: centos-6
   - name: centos-7
 
-
 suites:
   - name: binaries
     run_list:
