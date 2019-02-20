@@ -1,0 +1,13 @@
+name 'shifter'
+maintainer 'Manuel Torrinha'
+maintainer_email 'manuel.torrinha@tecnico.ulisboa.pt'
+license 'Apache-2.0'
+description 'Installs/Configures shifter'
+long_description 'Installs/Configures shifter'
+version '0.1.0'
+chef_version '>= 13.0'
+issues_url 'https://github.com/t0rrant/cookbook-shifter/issues'
+source_url 'https://github.com/t0rrant/cookbook-shifter'
+
+supports 'ubuntu', '>= 16'
+supports 'debian', '>= 9'
