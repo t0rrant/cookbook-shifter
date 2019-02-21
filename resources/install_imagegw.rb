@@ -1,3 +1,4 @@
+property :cookbook, String, default: 'shifter'
 property :config_dir, String, default: '/etc/shifter'
 property :udiroot, String, default: '/opt/shifter/udiRoot'
 property :git_repo, String, default: 'https://github.com/NERSC/shifter.git'

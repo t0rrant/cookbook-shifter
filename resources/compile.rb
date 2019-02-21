@@ -1,3 +1,4 @@
+property :cookbook, String, default: 'shifter'
 property :config_dir, String, default: '/etc/shifter'
 property :udiroot, String, default: '/opt/shifter/udiRoot'
 property :git_repo, String, default: 'https://github.com/NERSC/shifter.git'
@@ -48,6 +49,7 @@ action :install do
 
   template "#{new_resource.udiroot}/udiRoot.conf" do
     source 'udiRoot_conf.erb'
+    cookbook new_resource.cookbook
     variables(
       image_dir: new_resource.image_path,
       udiRoot: new_resource.udiroot,

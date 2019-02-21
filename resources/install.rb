@@ -1,3 +1,4 @@
+property :cookbook, String, default: 'shifter'
 property :config_dir, String, default: '/etc/shifter'
 property :udiroot, String, default: '/opt/shifter/udiRoot'
 property :git_repo, String, default: 'https://github.com/NERSC/shifter.git'
@@ -10,6 +11,7 @@ property :image_path, String, default: '/home/shifter/images'
 
 action :install do
   shifter_compile 'Compile and Install Shifter components' do
+    cookbook new_resource.cookbook
     config_dir new_resource.config_dir
     udiroot new_resource.udiroot
     git_repo new_resource.git_repo
@@ -27,16 +29,19 @@ action :install do
   template "#{new_resource.config_dir}/premount.sh" do
     source 'premount.sh'
     mode '755'
+    cookbook new_resource.cookbook
   end
 
   template "#{new_resource.config_dir}/postmount.sh" do
     source 'postmount.sh'
     mode '755'
+    cookbook new_resource.cookbook
   end
 
   template '/etc/profile.d/00-shifter_aliases.sh' do
     source 'aliases.sh'
     mode '644'
+    cookbook new_resource.cookbook
   end
 
   %w(passwd group).each do |file|
