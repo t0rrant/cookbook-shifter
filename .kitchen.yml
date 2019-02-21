@@ -20,9 +20,9 @@ suites:
   - name: binaries
     run_list:
       - recipe[test::shifter_compile]
-  - name: shifter runtime
+  - name: shifter-runtime
     run_list:
       - recipe[test::shifter_install]
-  - name: shifter image gateway
+  - name: shifter-image-gateway
     run_list:
       - recipe[test::shifterimg_install]
