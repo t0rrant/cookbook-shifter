@@ -5,6 +5,8 @@ property :version, String, default: '18.03.0'
 property :with_slurm, [true, false], default: false
 property :slurm_dir, String, default: '/usr'
 property :extract_dir, String, default: '/tmp'
+property :shifter_etc_files, String, default: lazy { "#{config_dir}/shifter_etc_files" }
+property :image_path, String, default: '/home/shifter/images'
 
 action :install do
   shifter_compile 'shifter_install' do
