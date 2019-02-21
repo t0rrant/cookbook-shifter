@@ -24,6 +24,8 @@ module ShifterCookbook
       value_for_platform(
         'debian' => {
           'default' => %w(
+            gcc
+            git
             unzip
             libjson-c-dev
             libjson-c3
@@ -44,6 +46,8 @@ module ShifterCookbook
         },
         'ubuntu' => {
           '< 18.04' => %w(
+            gcc
+            git
             unzip
             libjson-c-dev
             libjson-c2
@@ -61,6 +65,8 @@ module ShifterCookbook
             wget
           ),
           '>= 18.04' => %w(
+            gcc
+            git
             unzip
             libjson-c-dev
             libjson-c3
@@ -81,6 +87,7 @@ module ShifterCookbook
         },
         %w(centos redhat suse fedora) => {
           'default' => %w(
+            git
             gcc
             glibc-devel
             munge
