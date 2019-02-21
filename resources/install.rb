@@ -6,6 +6,8 @@ property :with_slurm, [true, false], default: false
 property :slurm_dir, String, default: '/usr'
 property :extract_dir, String, default: '/tmp'
 
+shifter_etc_files = new_resource.config_dir + '/shifter_etc_files'
+
 action :install do
   shifter_compile 'Compile and Install Shifter components' do
     config_dir new_resource.config_dir
@@ -20,6 +22,27 @@ action :install do
 
   link "#{new_resource.udiroot}/bin/shifter" do
     to '/usr/bin/shifter'
+  end
+
+  template "#{new_resource.config_dir}/premount.sh" do
+    source 'premount.sh'
+    mode '755'
+  end
+
+  template "#{new_resource.config_dir}/postmount.sh" do
+    source 'postmount.sh'
+    mode '755'
+  end
+
+  template '/etc/profile.d/00-shifter_aliases.sh' do
+    source 'aliases.sh'
+    mode '644'
+  end
+
+  %w(passwd group).each do |file|
+    link "#{shifter_etc_files}/#{file}" do
+      to "/etc/#{file}"
+    end
   end
 end
 

@@ -1,0 +1,67 @@
+udiMount=/var/udiMount
+
+loopMount=/var/udiLoopMount
+
+imagePath=<%= @image_dir %>
+
+udiRootPath=<%= @udiRoot %>
+
+sitePreMountHook=<%= @premount_sh %>
+
+sitePostMountHook=<%= @postmount_sh %>
+
+optUdiImage=<%= @udiroot %>/libexec/shifter/opt/udiImage
+
+etcPath=<%= @shifter_etc_files %>
+
+mountUdiRootWritable=1
+
+#maxGroupCount (required)
+#
+# Maximum number of groups to allow. If the embedded sshd is being used, then this
+# should be set to 31. This is used when preparing the /etc/group file, which is
+# a filtered version of the group file you provide to shifter. The filtering is
+# done because the libc utilities for parsing an /etc/group file are typically
+# more limited than the LDAP counterparts. Since LDAP is not usable within
+# shifter, a filtered group file is used.
+#
+# Recommended value: 31
+maxGroupCount=31
+
+modprobePath=/sbin/modprobe
+
+insmodPath=/sbin/insmod
+
+cpPath=/bin/cp
+
+mvPath=/bin/mv
+
+chmodPath=/bin/chmod
+
+ddPath=/bin/dd
+
+rootfsType=tmpfs
+
+siteFs=/home:/home;/mnt:/mnt;
+
+siteEnv=SHIFTER_RUNTIME=1
+
+siteEnvAppend=PATH=/opt/udiImage/bin
+
+#siteEnvPrepend=PATH=/opt/udiImage/bin
+
+
+#imageGateway
+#
+# Space seperated URLs for your imagegw. Used by shifterimg and SLURM batch
+# integration to communicate with the imagegw.
+# batchType (optional)
+#
+# Used by batch integration code to pick useful settings. May be deprecated in
+# the future as it is not necessary at this point.
+#
+imageGateway=http://<%= @imagegw_fqdn %>:5000
+
+system=<%= @system_name %>
+
+defaultImageType=docker

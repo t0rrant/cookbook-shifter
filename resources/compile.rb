@@ -5,6 +5,7 @@ property :version, String, default: '18.03.0'
 property :with_slurm, [true, false], default: false
 property :slurm_dir, String, default: '/usr'
 property :extract_dir, String, default: '/tmp'
+property :image_path, String, default: '/home/shifter/images'
 
 include ShifterCookbook::Helpers
 
@@ -40,6 +41,20 @@ action :install do
 
   link "#{new_resource.udiroot}/libexec/shifter/mount" do
     to '/usr/libexec/shifter/mount'
+  end
+
+  node.default['shifter']['system'] = node['fqdn']
+
+  template "#{new_resource.udiroot}/udiRoot.conf" do
+    source 'udiRoot_conf.erb'
+    variables(
+      image_dir: new_resource.image_path,
+      udiRoot: new_resource.udiroot,
+      premount_sh: "#{new_resource.config_dir}/premount.sh",
+      postmount_sh: "#{new_resource.config_dir}/postmount.sh",
+      shifter_etc_files: "#{new_resource.config_dir}/shifter_etc_files",
+      system_name: node['shifter']['system']
+    )
   end
 
   directory new_resource.config_dir do

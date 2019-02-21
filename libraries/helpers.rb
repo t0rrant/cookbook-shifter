@@ -21,43 +21,84 @@ module ShifterCookbook
     include Chef::Mixin::ShellOut
 
     def required_packages
-      if platform_family?('debian')
-        %w(
-          unzip
-          libjson-c2
-          libjson-c-dev
-          libmunge2
-          libmunge-dev
-          libcurl4-openssl-dev
-          autoconf
-          automake
-          libtool
-          curl
-          make
-          xfsprogs
-          python-dev
-          libcap-dev
-          wget
-        )
-      elsif platform_family?('redhat')
-        %w(
-          gcc
-          glibc-devel
-          munge
-          libcurl-devel
-          json-c
-          json-c-devel
-          pam-devel
-          munge-devel
-          libtool
-          autoconf
-          automake
-          gcc-c++
-          xfsprogs
-          python-devel
-          libcap-devel
-        )
-      end
+      value_for_platform(
+        'debian' => {
+          'default' => %w(
+            unzip
+            libjson-c-dev
+            libjson-c3
+            libmunge2
+            libmunge-dev
+            libcurl4-openssl-dev
+            autoconf
+            automake
+            libtool
+            curl
+            make
+            xfsprogs
+            python-dev
+            libcap-dev
+            wget
+          ),
+
+        },
+        'ubuntu' => {
+          '< 18.04' => %w(
+            unzip
+            libjson-c-dev
+            libjson-c2
+            libmunge2
+            libmunge-dev
+            libcurl4-openssl-dev
+            autoconf
+            automake
+            libtool
+            curl
+            make
+            xfsprogs
+            python-dev
+            libcap-dev
+            wget
+          ),
+          '>= 18.04' => %w(
+            unzip
+            libjson-c-dev
+            libjson-c3
+            libmunge2
+            libmunge-dev
+            libcurl4-openssl-dev
+            autoconf
+            automake
+            libtool
+            curl
+            make
+            xfsprogs
+            python-dev
+            libcap-dev
+            wget
+          ),
+
+        },
+        %w(centos redhat suse fedora) => {
+          'default' => %w(
+            gcc
+            glibc-devel
+            munge
+            libcurl-devel
+            json-c
+            json-c-devel
+            pam-devel
+            munge-devel
+            libtool
+            autoconf
+            automake
+            gcc-c++
+            xfsprogs
+            python-devel
+            libcap-devel
+          ),
+        }
+      )
     end
   end
 end
