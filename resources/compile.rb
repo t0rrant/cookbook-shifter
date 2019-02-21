@@ -61,7 +61,6 @@ action :install do
     creates "#{new_resource.extract_dir}/shifter-#{new_resource.version}"
   end
 
-
   # git "#{new_resource.extract_dir}/shifter-#{new_resource.version}" do
   #   repository new_resource.git_repo
   #   revision "shifter-#{new_resource.version}" if new_resource.version != 'master'
