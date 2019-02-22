@@ -1,15 +1,15 @@
-property :cookbook, String, default: 'shifter'
-property :config_dir, String, default: '/etc/shifter'
-property :udiroot, String, default: '/opt/shifter/udiRoot'
-property :git_repo, String, default: 'https://github.com/NERSC/shifter.git'
-property :version, String, default: '18.03.0'
-property :with_slurm, [true, false], default: false
-property :slurm_dir, String, default: '/usr'
-property :extract_dir, String, default: '/tmp'
-property :shifter_etc_files, String, default: lazy { "#{config_dir}/shifter_etc_files" }
-property :image_path, String, default: '/home/shifter/images'
-
 include ShifterCookbook::Helpers
+
+property :cookbook, String, default: 'shifter'
+property :extract_dir, String, default: '/tmp'
+property :slurm_dir, String, default: '/usr'
+property :with_slurm, [true, false], default: false
+property :config_dir, String, default: lazy { shifter_config_dir }
+property :udiroot, String, default: lazy { shifter_udiroot_dir  }
+property :git_repo, String, default: lazy { shifter_git_repo }
+property :version, String, default: lazy { shifter_version_stable }
+property :shifter_etc_files, String, default: lazy { shifter_etc_files_dir }
+property :image_path, String, default: lazy { shifter_image_dir }
 
 action :install do
   required_packages.each(&method(:package))
@@ -32,7 +32,7 @@ action :install do
     not_if { ::File.directory?('/usr/libexec/shifter') }
   end
 
-  node.default['shifter']['system'] = node['fqdn']
+  node.default['shifter']['system'] = node.default['shifter']['imagegw_fqdn'] = node['fqdn']
 
   template "#{new_resource.udiroot}/udiRoot.conf" do
     source 'udiRoot_conf.erb'
@@ -43,7 +43,8 @@ action :install do
       premount_sh: "#{new_resource.config_dir}/premount.sh",
       postmount_sh: "#{new_resource.config_dir}/postmount.sh",
       shifter_etc_files: new_resource.shifter_etc_files,
-      system_name: node['shifter']['system']
+      system_name: node['shifter']['system'],
+      imagegw_fqdn: node['shifter']['imagegw_fqdn']
     )
   end
 
@@ -56,17 +57,17 @@ action :install do
     not_if { ::File.directory?(new_resource.config_dir) }
   end
 
-  tar_extract "https://github.com/NERSC/shifter/releases/download/#{new_resource.version}/shifter-#{new_resource.version}.tar.gz" do
-    target_dir new_resource.extract_dir
-    creates "#{new_resource.extract_dir}/shifter-#{new_resource.version}"
-  end
-
-  # git "#{new_resource.extract_dir}/shifter-#{new_resource.version}" do
-  #   repository new_resource.git_repo
-  #   revision "shifter-#{new_resource.version}" if new_resource.version != 'master'
+  # tar_extract "https://github.com/NERSC/shifter/releases/download/#{new_resource.version}/shifter-#{new_resource.version}.tar.gz" do
+  #   target_dir new_resource.extract_dir
+  #   creates "#{new_resource.extract_dir}/shifter-#{new_resource.version}"
   # end
 
-  configure_opts = "--prefix=#{new_resource.udiroot} --sysconfdir=#{new_resource.config_dir} --with-json-c --with-libcurl --with-munge"
+  git "#{new_resource.extract_dir}/shifter-#{new_resource.version}" do
+    repository new_resource.git_repo
+    revision "shifter-#{new_resource.version}" if new_resource.version != 'master'
+  end
+
+  configure_opts = "--prefix=#{new_resource.udiroot} --sysconfdir=#{new_resource.config_dir} --disable-static-sshd --with-json-c --with-libcurl --with-munge"
   configure_opts << "--with-slurm=#{new_resource.slurm_dir}" if new_resource.with_slurm
 
   bash 'configure and compile shifter' do

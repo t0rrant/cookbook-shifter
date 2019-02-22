@@ -23,7 +23,26 @@ module ShifterCookbook
     def required_packages
       value_for_platform(
         'debian' => {
-          'default' => %w(
+          '< 9' => %w(
+            gcc
+            git
+            unzip
+            libjson-c-dev
+            libjson-c2
+            libmunge2
+            libmunge-dev
+            libcurl4-openssl-dev
+            autoconf
+            automake
+            libtool
+            curl
+            make
+            xfsprogs
+            python-dev
+            libcap-dev
+            wget
+          ),
+          '>= 9' => %w(
             gcc
             git
             unzip
@@ -106,6 +125,32 @@ module ShifterCookbook
           ),
         }
       )
+    end
+
+    def shifter_config_dir
+      '/etc/shifter'
+    end
+
+    def shifter_udiroot_dir
+      '/opt/shifter/udiRoot'
+    end
+
+    def shifter_git_repo
+      'https://github.com/NERSC/shifter.git'
+      # 'https://github.com/t0rrant/shifter.git'
+    end
+
+    def shifter_version_stable
+      # '18.03.0'
+      'master'
+    end
+
+    def shifter_etc_files_dir
+      "#{shifter_config_dir}/shifter_etc_files"
+    end
+
+    def shifter_image_dir
+      '/home/shifter/images'
     end
   end
 end

@@ -1,13 +1,15 @@
+include ShifterCookbook::Helpers
+
 property :cookbook, String, default: 'shifter'
-property :config_dir, String, default: '/etc/shifter'
-property :udiroot, String, default: '/opt/shifter/udiRoot'
-property :git_repo, String, default: 'https://github.com/NERSC/shifter.git'
-property :version, String, default: '18.03.0'
-property :with_slurm, [true, false], default: false
-property :slurm_dir, String, default: '/usr'
 property :extract_dir, String, default: '/tmp'
-property :shifter_etc_files, String, default: lazy { "#{config_dir}/shifter_etc_files" }
-property :image_path, String, default: '/home/shifter/images'
+property :slurm_dir, String, default: '/usr'
+property :with_slurm, [true, false], default: false
+property :config_dir, String, default: lazy { shifter_config_dir }
+property :udiroot, String, default: lazy { shifter_udiroot_dir  }
+property :git_repo, String, default: lazy { shifter_git_repo }
+property :version, String, default: lazy { shifter_version_stable }
+property :shifter_etc_files, String, default: lazy { shifter_etc_files_dir }
+property :image_path, String, default: lazy { shifter_image_dir }
 
 action :install do
   shifter_compile 'Compile and Install Shifter components' do
