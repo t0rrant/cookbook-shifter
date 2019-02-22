@@ -10,6 +10,7 @@ property :git_repo, String, default: lazy { shifter_git_repo }
 property :version, String, default: lazy { shifter_version_stable }
 property :shifter_etc_files, String, default: lazy { shifter_etc_files_dir }
 property :image_path, String, default: lazy { shifter_image_dir }
+property :imagegw_fqdn, String, default: nil
 
 action :install do
   required_packages.each(&method(:package))
@@ -32,7 +33,7 @@ action :install do
     not_if { ::File.directory?('/usr/libexec/shifter') }
   end
 
-  node.default['shifter']['system'] = node.default['shifter']['imagegw_fqdn'] = node['fqdn']
+  node.default['shifter']['system'] = node['hostname']
 
   template "#{new_resource.udiroot}/udiRoot.conf" do
     source 'udiRoot_conf.erb'
@@ -44,7 +45,7 @@ action :install do
       postmount_sh: "#{new_resource.config_dir}/postmount.sh",
       shifter_etc_files: new_resource.shifter_etc_files,
       system_name: node['shifter']['system'],
-      imagegw_fqdn: node['shifter']['imagegw_fqdn']
+      imagegw_fqdn: new_resource.imagegw_fqdn.nil? ? node['fqdn'] : new_resource.imagegw_fqdn.host
     )
   end
 
