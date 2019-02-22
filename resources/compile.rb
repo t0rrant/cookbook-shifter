@@ -67,7 +67,7 @@ action :install do
     revision "shifter-#{new_resource.version}" if new_resource.version != 'master'
   end
 
-  configure_opts = "--prefix=#{new_resource.udiroot} --sysconfdir=#{new_resource.config_dir} --disable-static-sshd --with-json-c --with-libcurl --with-munge"
+  configure_opts = "--prefix=#{new_resource.udiroot} --sysconfdir=#{new_resource.config_dir} --disable-staticsshd --with-json-c --with-libcurl --with-munge"
   configure_opts << "--with-slurm=#{new_resource.slurm_dir}" if new_resource.with_slurm
 
   bash 'configure and compile shifter' do
