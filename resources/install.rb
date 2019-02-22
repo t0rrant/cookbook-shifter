@@ -5,7 +5,7 @@ property :extract_dir, String, default: '/tmp'
 property :slurm_dir, String, default: '/usr'
 property :with_slurm, [true, false], default: false
 property :config_dir, String, default: lazy { shifter_config_dir }
-property :udiroot, String, default: lazy { shifter_udiroot_dir  }
+property :udiroot, String, default: lazy { shifter_udiroot_dir }
 property :git_repo, String, default: lazy { shifter_git_repo }
 property :version, String, default: lazy { shifter_version_stable }
 property :shifter_etc_files, String, default: lazy { shifter_etc_files_dir }
