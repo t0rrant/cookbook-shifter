@@ -52,3 +52,8 @@ Compiles shifter components, if they haven't been compiled already, and creates 
 |---|---|
 | `['shifter']['system']`       | Name of your system, e.g., edison or cori. This name must match a configured system in the imagegw. This is primarily used by shifterimg to self-identify which system it is representing. |
 | `['shifter']['imagegw_fqdn']` | Space seperated URLs for your imagegw. Used by shifterimg and Slurm batch integration to communicate with the imagegw. |
+
+
+## Authors
+
+* Manuel Torrinha   <manuel.torrinha@tecnico.ulisboa.pt>
