@@ -45,7 +45,7 @@ action :install do
       postmount_sh: "#{new_resource.config_dir}/postmount.sh",
       shifter_etc_files: new_resource.shifter_etc_files,
       system_name: node['shifter']['system'],
-      imagegw_fqdn: new_resource.imagegw_fqdn.empty? ? node['fqdn'] : new_resource.imagegw_fqdn.host
+      imagegw_fqdn: new_resource.imagegw_fqdn.empty? ? node['fqdn'] : new_resource.imagegw_fqdn
     )
   end
 
