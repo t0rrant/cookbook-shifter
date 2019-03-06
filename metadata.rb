@@ -9,8 +9,8 @@ chef_version '>= 14.0'
 issues_url 'https://github.com/t0rrant/cookbook-shifter/issues'
 source_url 'https://github.com/t0rrant/cookbook-shifter'
 
-supports 'ubuntu', '>= 14'
-supports 'debian', '>= 9'
-supports 'centos', '>= 6'
+supports 'ubuntu', '>= 14.0'
+supports 'debian', '>= 9.0'
+supports 'centos', '>= 6.0'
 
-depends 'tar', '~> 2'
+depends 'tar', '~> 2.0'
