@@ -7,6 +7,10 @@ This file is used to list changes made in each version of the shifter cookbook.
 
 ## 0.1.1
 
+### Added
+
+- Guidelines for contributing to this cookbook
+
 ### Changed
 
 - Version syntax so it complies with supermarket rules
