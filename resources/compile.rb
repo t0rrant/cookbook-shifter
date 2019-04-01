@@ -10,7 +10,7 @@ property :git_repo, String, default: lazy { shifter_git_repo }
 property :version, String, default: lazy { shifter_version_stable }
 property :shifter_etc_files, String, default: lazy { shifter_etc_files_dir }
 property :image_path, String, default: lazy { shifter_image_dir }
-property :imagegw_fqdn, String, default: ''
+property :imagegw_fqdn, [nil, String], default: nil
 
 action :install do
   required_packages.each(&method(:package))
@@ -31,22 +31,6 @@ action :install do
     recursive true
     action :create
     not_if { ::File.directory?('/usr/libexec/shifter') }
-  end
-
-  node.default['shifter']['system'] = node['hostname']
-
-  template "#{new_resource.udiroot}/udiRoot.conf" do
-    source 'udiRoot_conf.erb'
-    cookbook new_resource.cookbook
-    variables(
-      image_dir: new_resource.image_path,
-      udiRoot: new_resource.udiroot,
-      premount_sh: "#{new_resource.config_dir}/premount.sh",
-      postmount_sh: "#{new_resource.config_dir}/postmount.sh",
-      shifter_etc_files: new_resource.shifter_etc_files,
-      system_name: node['shifter']['system'],
-      imagegw_fqdn: new_resource.imagegw_fqdn.empty? ? node['fqdn'] : new_resource.imagegw_fqdn
-    )
   end
 
   directory new_resource.config_dir do
@@ -80,6 +64,22 @@ action :install do
     make
     make install
     EOH
+  end
+
+  system_name = node['hostname']
+
+  template "#{new_resource.config_dir}/udiRoot.conf" do
+    source 'udiRoot_conf.erb'
+    cookbook new_resource.cookbook
+    variables(
+        image_dir: new_resource.image_path,
+        udiRoot: new_resource.udiroot,
+        premount_sh: "#{new_resource.config_dir}/premount.sh",
+        postmount_sh: "#{new_resource.config_dir}/postmount.sh",
+        shifter_etc_files: new_resource.shifter_etc_files,
+        system_name: system_name,
+        imagegw_fqdn: new_resource.imagegw_fqdn | node['fqdn']
+    )
   end
 
   link "#{new_resource.udiroot}/libexec/shifter/mount" do

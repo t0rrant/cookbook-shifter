@@ -5,6 +5,19 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 This file is used to list changes made in each version of the shifter cookbook.
 
+## 0.2.0
+
+### Added
+
+- mandatory imagemanager.json config file for shifter_imagegw
+- shifter_imagegw systemd service file
+- helper variables
+- shifter_imagegw dependencies installation
+
+### Fixed
+
+- udiRoot.conf location
+
 ## 0.1.1
 
 ### Added

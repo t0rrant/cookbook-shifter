@@ -127,6 +127,69 @@ module ShifterCookbook
       )
     end
 
+    def shifter_imagegw_packages
+      value_for_platform(
+          'debian' => {
+              '< 9' => %w(
+                mongodb-server
+                squashfs-tools
+                python-pymongo
+                python-flask
+                pylint
+                gunicorn
+                redis-server
+                python-redis
+          ),
+              '>= 9' => %w(
+                mongodb-server
+                squashfs-tools
+                python-pymongo
+                python-flask
+                pylint
+                gunicorn
+                redis-server
+                python-redis
+          ),
+
+          },
+          'ubuntu' => {
+              '< 18.04' => %w(
+                mongodb-server
+                squashfs-tools
+                python-pymongo
+                python-flask
+                pylint
+                gunicorn
+                redis-server
+                python-redis
+          ),
+              '>= 18.04' => %w(
+                mongodb-server
+                squashfs-tools
+                python-pymongo
+                python-flask
+                pylint
+                gunicorn
+                redis-server
+                python-redis
+          ),
+
+          },
+          %w(centos redhat suse fedora) => {
+              'default' => %w(
+                mongodb-server
+                squashfs-tools
+                python-pymongo
+                python-flask
+                pylint
+                python-gunicorn
+                redis
+                python-redis
+          ),
+          }
+      )
+    end
+
     def shifter_config_dir
       '/etc/shifter'
     end
@@ -151,6 +214,14 @@ module ShifterCookbook
 
     def shifter_image_dir
       '/home/shifter/images'
+    end
+
+    def shifter_expand_dir
+      '/var/opt/shifter/images'
+    end
+
+    def systemd_service_dir
+      '/usr/lib/systemd/system'
     end
   end
 end
