@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 This file is used to list changes made in each version of the shifter cookbook.
 
+## 0.2.4
+
+### Changed
+
+- systemd service file location
+
+### Removed
+
+- support for CentOS, temporarily
+
 ## 0.2.3
 
 ### Fixed

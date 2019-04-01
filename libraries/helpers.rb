@@ -181,7 +181,6 @@ module ShifterCookbook
             squashfs-tools
             python-pymongo
             python-flask
-            pylint
             python-gunicorn
             redis
             python-redis
@@ -221,7 +220,7 @@ module ShifterCookbook
     end
 
     def systemd_service_dir
-      '/usr/lib/systemd/system'
+      '/etc/systemd/system/'
     end
 
     def system_name
