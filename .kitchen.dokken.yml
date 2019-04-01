@@ -11,22 +11,12 @@ provisioner:
   deprecations_as_errors: false
 
 platforms:
-#  - name: debian-8
-#    driver:
-#      image: dokken/debian-8
-#      intermediate_instructions:
-        - RUN /usr/bin/apt-get update
   - name: debian-9
     driver:
       image: dokken/debian-9
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
-#  - name: ubuntu-14.04
-#    driver:
-#      image: dokken/ubuntu-14.04
-#      intermediate_instructions:
-#        - RUN /usr/bin/apt-get update
   - name: ubuntu-16.04
     driver:
       image: dokken/ubuntu-16.04
@@ -39,13 +29,3 @@ platforms:
       pid_one_command: /bin/systemd
       intermediate_instructions:
         - RUN /usr/bin/apt-get update
-  #- name: centos-6
-  #  driver:
-  #    image: dokken/centos-6
-  #    intermediate_instructions:
-  #      - RUN /usr/bin/yum install -y epel-release
-  #- name: centos-7
-  #  driver:
-  #    image: dokken/centos-7
-  #    intermediate_instructions:
-  #      - RUN /usr/bin/yum install -y epel-release
