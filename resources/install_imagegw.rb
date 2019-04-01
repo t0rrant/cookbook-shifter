@@ -11,7 +11,7 @@ property :version, String, default: lazy { shifter_version_stable }
 property :shifter_etc_files, String, default: lazy { shifter_etc_files_dir }
 property :image_path, String, default: lazy { shifter_image_dir }
 property :expand_path, String, default: lazy { shifter_expand_dir }
-property :imagegw_fqdn, String, default: ''
+property :imagegw_fqdn, [nil, String], default: nil
 
 action :install do
   shifter_compile 'shifter_install' do

@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 This file is used to list changes made in each version of the shifter cookbook.
 
+## 0.2.2
+
+### Changed
+
+- `imagegw_fqdn` property value which is passed down to the `compile` resource   
+
 ## 0.2.1
 
 ### Fixed

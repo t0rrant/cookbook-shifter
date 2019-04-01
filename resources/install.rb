@@ -10,7 +10,7 @@ property :git_repo, String, default: lazy { shifter_git_repo }
 property :version, String, default: lazy { shifter_version_stable }
 property :shifter_etc_files, String, default: lazy { shifter_etc_files_dir }
 property :image_path, String, default: lazy { shifter_image_dir }
-property :imagegw_fqdn, String, default: ''
+property :imagegw_fqdn, [nil, String], default: nil
 
 action :install do
   shifter_compile 'Compile and Install Shifter components' do
