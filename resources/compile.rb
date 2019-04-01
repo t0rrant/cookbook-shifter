@@ -86,7 +86,7 @@ action :install do
 end
 
 action :clean do
-  directory new_resource.extract_dir do
+  directory "#{new_resource.extract_dir}/shifter" do
     recursive true
     action :delete
   end
@@ -102,11 +102,5 @@ action :uninstall do
   link "#{new_resource.udiroot}/libexec/shifter/mount" do
     to '/usr/libexec/shifter/mount'
     action :delete
-  end
-
-  directory new_resource.config_dir do
-    recursive true
-    action :delete
-    only_if { ::File.directory?(new_resource.config_dir) }
   end
 end
