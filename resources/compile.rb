@@ -66,19 +66,17 @@ action :install do
     EOH
   end
 
-  system_name = node['hostname']
-
   template "#{new_resource.config_dir}/udiRoot.conf" do
     source 'udiRoot_conf.erb'
     cookbook new_resource.cookbook
     variables(
-        image_dir: new_resource.image_path,
-        udiRoot: new_resource.udiroot,
-        premount_sh: "#{new_resource.config_dir}/premount.sh",
-        postmount_sh: "#{new_resource.config_dir}/postmount.sh",
-        shifter_etc_files: new_resource.shifter_etc_files,
-        system_name: system_name,
-        imagegw_fqdn: new_resource.imagegw_fqdn | node['fqdn']
+      image_dir: new_resource.image_path,
+      udiRoot: new_resource.udiroot,
+      premount_sh: "#{new_resource.config_dir}/premount.sh",
+      postmount_sh: "#{new_resource.config_dir}/postmount.sh",
+      shifter_etc_files: new_resource.shifter_etc_files,
+      system_name: system_name,
+      imagegw_fqdn: new_resource.imagegw_fqdn | node['fqdn']
     )
   end
 

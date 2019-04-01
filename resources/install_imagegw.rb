@@ -51,10 +51,10 @@ action :install do
     source 'imagemanager.json.erb'
     cookbook new_resource.cookbook
     variables(
-        image_dir: new_resource.image_path,
-        expand_dir: new_resource.expand_path,
-        cache_dir: "#{new_resource.image_path}/cache",
-        system_name: system_name
+      image_dir: new_resource.image_path,
+      expand_dir: new_resource.expand_path,
+      cache_dir: "#{new_resource.image_path}/cache",
+      system_name: system_name
     )
   end
 
@@ -62,7 +62,7 @@ action :install do
     source 'shifter_imagegw.service.erb'
     cookbook new_resource.cookbook
     variables(
-        shifter_udiroot_dir: shifter_udiroot_dir
+      shifter_udiroot_dir: shifter_udiroot_dir
     )
   end
 
@@ -93,11 +93,11 @@ action :uninstall do
     action :stop
   end
 
-  file '#{systemd_service_dir}/shifter_imagegw.service' do
+  file "#{systemd_service_dir}/shifter_imagegw.service" do
     action :delete
   end
 
-  file '#{new_resource.config_dir}/imagemanager.json' do
+  file "#{new_resource.config_dir}/imagemanager.json" do
     action :delete
   end
 

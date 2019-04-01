@@ -129,64 +129,64 @@ module ShifterCookbook
 
     def shifter_imagegw_packages
       value_for_platform(
-          'debian' => {
-              '< 9' => %w(
-                mongodb-server
-                squashfs-tools
-                python-pymongo
-                python-flask
-                pylint
-                gunicorn
-                redis-server
-                python-redis
+        'debian' => {
+          '< 9' => %w(
+            mongodb-server
+            squashfs-tools
+            python-pymongo
+            python-flask
+            pylint
+            gunicorn
+            redis-server
+            python-redis
           ),
-              '>= 9' => %w(
-                mongodb-server
-                squashfs-tools
-                python-pymongo
-                python-flask
-                pylint
-                gunicorn
-                redis-server
-                python-redis
-          ),
-
-          },
-          'ubuntu' => {
-              '< 18.04' => %w(
-                mongodb-server
-                squashfs-tools
-                python-pymongo
-                python-flask
-                pylint
-                gunicorn
-                redis-server
-                python-redis
-          ),
-              '>= 18.04' => %w(
-                mongodb-server
-                squashfs-tools
-                python-pymongo
-                python-flask
-                pylint
-                gunicorn
-                redis-server
-                python-redis
+          '>= 9' => %w(
+            mongodb-server
+            squashfs-tools
+            python-pymongo
+            python-flask
+            pylint
+            gunicorn
+            redis-server
+            python-redis
           ),
 
-          },
-          %w(centos redhat suse fedora) => {
-              'default' => %w(
-                mongodb-server
-                squashfs-tools
-                python-pymongo
-                python-flask
-                pylint
-                python-gunicorn
-                redis
-                python-redis
+        },
+        'ubuntu' => {
+          '< 18.04' => %w(
+            mongodb-server
+            squashfs-tools
+            python-pymongo
+            python-flask
+            pylint
+            gunicorn
+            redis-server
+            python-redis
           ),
-          }
+          '>= 18.04' => %w(
+            mongodb-server
+            squashfs-tools
+            python-pymongo
+            python-flask
+            pylint
+            gunicorn
+            redis-server
+            python-redis
+          ),
+
+        },
+        %w(centos redhat suse fedora) => {
+          'default' => %w(
+            mongodb-server
+            squashfs-tools
+            python-pymongo
+            python-flask
+            pylint
+            python-gunicorn
+            redis
+            python-redis
+          ),
+        }
       )
     end
 
@@ -222,6 +222,10 @@ module ShifterCookbook
 
     def systemd_service_dir
       '/usr/lib/systemd/system'
+    end
+
+    def system_name
+      node['hostname']
     end
   end
 end
