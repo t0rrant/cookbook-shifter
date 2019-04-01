@@ -18,7 +18,7 @@ platforms:
 #  - name: centos-7
 
 suites:
-  - name: full install
+  - name: binaries
     run_list:
       - recipe[test::shifter_compile]
       - recipe[test::shifterimg_install]

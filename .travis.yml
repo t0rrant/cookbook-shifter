@@ -16,13 +16,13 @@ services: docker
 
 env:
   matrix:
-    - INSTANCE=ubuntu-1404
+#    - INSTANCE=ubuntu-1404
     - INSTANCE=ubuntu-1604
     - INSTANCE=ubuntu-1804
-    - INSTANCE=debian-8
+#    - INSTANCE=debian-8
     - INSTANCE=debian-9
-    - INSTANCE=centos-6
-    - INSTANCE=centos-7
+#    - INSTANCE=centos-6
+#    - INSTANCE=centos-7
 
 before_script:
   - sudo iptables -L DOCKER || ( echo "DOCKER iptables chain missing" ; sudo iptables -N DOCKER )

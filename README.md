@@ -27,7 +27,6 @@ The following platforms are supported:
 ## TODO
 
 - Add support for other options for udiRoot.conf config file
-- Add support for static sshd build
 
 ## Usage
 

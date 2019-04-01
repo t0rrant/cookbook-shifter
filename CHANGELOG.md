@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 This file is used to list changes made in each version of the shifter cookbook.
 
+## 0.2.6
+
+### Removed
+
+- support for non-systemd distros, temporary
+
 ## 0.2.5
 
 ### Changed
