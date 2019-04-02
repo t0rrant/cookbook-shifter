@@ -1,25 +1,22 @@
 [Unit]
 Description=Shifter Image Manager
-After=network.service # munge.service # consider munge dependency **after** splitting the munge recipe from the slurm cookbook
+After=network.target # munge.service # consider munge dependency **after** splitting the munge recipe from the slurm cookbook
 
 [Service]
 Type=simple
+# for now it will run as root, considering a closed volatile system, will leave chowns commented for later reference
 # User=shifter
 # Group=shifter
-PrivateTmp=true
-PermissionsStartOnly=true
+# PrivateTmp=true
 Environment=PYTHONPATH=<%= @shifter_udiroot_dir %>/lib/python2.7/site-packages/
-ExecStartPre=/usr/bin/mkdir -p /var/log/shifter_imagegw
 # ExecStartPre=/usr/bin/chown shifter:shifter /var/log/shifter_imagegw
-ExecStart=/usr/bin/gunicorn \
+ExecStart=+/usr/bin/gunicorn \
 -b 0.0.0.0:5000 --backlog 2048 \
---access-logfile=/var/log/shifter_imagegw/access.log \
---log-file=/var/log/shifter_imagegw/error.log \
+--access-logfile=<%= @imagegw_log_dir %>/access.log \
+--log-file=<%= @imagegw_log_dir %>/error.log \
 shifter_imagegw.api:app
+RestartSec=2
 Restart=on-failure
-
-#ExecStart=/usr/sbin/openvpn --daemon --suppress-timestamps --writepid /var/run/openvpn/%i.pid --cd /etc/openvpn/ --config %i.conf
-#ExecReload=/sbin/killproc -p /var/run/openvpn/%i.pid -HUP /usr/sbin/openvpn
 
 [Install]
 WantedBy=multi-user.target

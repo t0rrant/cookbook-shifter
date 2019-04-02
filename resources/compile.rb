@@ -80,8 +80,8 @@ action :install do
     )
   end
 
-  link "#{new_resource.udiroot}/libexec/shifter/mount" do
-    to '/usr/libexec/shifter/mount'
+  link '/usr/libexec/shifter/mount' do
+    to "#{new_resource.udiroot}/libexec/shifter/mount"
   end
 end
 
@@ -99,8 +99,8 @@ action :uninstall do
     only_if { ::File.directory?('/usr/libexec/shifter') }
   end
 
-  link "#{new_resource.udiroot}/libexec/shifter/mount" do
-    to '/usr/libexec/shifter/mount'
+  link '/usr/libexec/shifter/mount' do
+    to "#{new_resource.udiroot}/libexec/shifter/mount"
     action :delete
   end
 end

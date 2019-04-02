@@ -12,6 +12,7 @@ property :shifter_etc_files, String, default: lazy { shifter_etc_files_dir }
 property :image_path, String, default: lazy { shifter_image_dir }
 property :expand_path, String, default: lazy { shifter_expand_dir }
 property :imagegw_fqdn, [nil, String], default: nil
+property :imagegw_log_dir, String, default: '/var/log/shifter_imagegw'
 
 action :install do
   shifter_compile 'shifter_install' do
@@ -47,6 +48,15 @@ action :install do
     not_if { ::File.directory?(new_resource.expand_path) }
   end
 
+  directory new_resource.imagegw_log_dir do
+    owner 'root'
+    group 'root'
+    mode '0750'
+    recursive true
+    action :create
+    not_if { ::File.directory?(new_resource.imagegw_log_dir) }
+  end
+
   template "#{new_resource.config_dir}/imagemanager.json" do
     source 'imagemanager.json.erb'
     cookbook new_resource.cookbook
@@ -62,7 +72,8 @@ action :install do
     source 'shifter_imagegw.service.erb'
     cookbook new_resource.cookbook
     variables(
-      shifter_udiroot_dir: shifter_udiroot_dir
+      shifter_udiroot_dir: shifter_udiroot_dir,
+      imagegw_log_dir: new_resource.imagegw_log_dir
     )
   end
 
@@ -71,8 +82,25 @@ action :install do
     action :run
   end
 
-  link "#{new_resource.udiroot}/bin/shifterimg" do
-    to '/usr/bin/shifterimg'
+  link '/usr/bin/shifterimg' do
+    to "#{new_resource.udiroot}/bin/shifterimg"
+  end
+
+  service 'MongoDB Service' do
+    service_name 'mongodb'
+    supports restart: true, status: true
+    restart_command "systemctl restart #{service_name}"
+    status_command "systemctl status #{service_name}"
+    action [:enable, :start]
+  end
+
+  service 'Munge Service' do
+    service_name 'munge'
+    supports restart: true, status: true
+    restart_command "systemctl restart #{service_name}"
+    status_command "systemctl status #{service_name}"
+    action :start
+    not_if 'kill -SIGHUP `cat /var/run/munge/munged.pid`'
   end
 
   service 'Shifter Image Manager Service' do
@@ -80,7 +108,7 @@ action :install do
     supports restart: true, status: true
     restart_command "systemctl restart #{service_name}"
     status_command "systemctl status #{service_name}"
-    action :start
+    action [:enable, :start]
   end
 end
 
@@ -101,8 +129,8 @@ action :uninstall do
     action :delete
   end
 
-  link "#{new_resource.udiroot}/bin/shifterimg" do
-    to '/usr/bin/shifterimg'
+  link '/usr/bin/shifterimg' do
+    to "#{new_resource.udiroot}/bin/shifterimg"
     action :delete
   end
 end

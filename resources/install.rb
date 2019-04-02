@@ -26,8 +26,8 @@ action :install do
     not_if { ::File.exist?(new_resource.udiroot + '/bin/shifter') }
   end
 
-  link "#{new_resource.udiroot}/bin/shifter" do
-    to '/usr/bin/shifter'
+  link '/usr/bin/shifter' do
+    to "#{new_resource.udiroot}/bin/shifter"
   end
 
   template "#{new_resource.config_dir}/premount.sh" do
@@ -56,8 +56,8 @@ action :install do
 end
 
 action :uninstall do
-  link "#{new_resource.udiroot}/bin/shifter" do
-    to '/usr/bin/shifter'
+  link '/usr/bin/shifter' do
+    to "#{new_resource.udiroot}/bin/shifter"
     action :delete
   end
 end

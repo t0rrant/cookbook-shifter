@@ -5,6 +5,24 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 This file is used to list changes made in each version of the shifter cookbook.
 
+## 1.0.0
+
+### Added
+
+- `imagegw_log_dir` property to `install_imagegw` resource
+- ensure service start for `munge` and `mongodb` services
+
+### Changed
+
+- creation of shifter_imagegw log directory to the recipe as mkdir command location differs from system to system 
+
+### Fixed
+
+- `imagemanager.json` typo
+- Shifter Image Gateway systemd service unit
+- symlinks for `shifter` and `shifterimg` binaries
+- symlinks for the container mount directory 
+
 ## 0.2.7
 
 ### Fixed

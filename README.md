@@ -11,6 +11,8 @@ Requires the following cookbooks:
 
  - 'tar', '~> 2'
 
+This cookbook assumes a munge service is up and running and properly configured, if you are to run an image manager.
+See `test/cookbooks/test/recipes/shifterimg_install.rb` for more info.
 
 ## Platforms
 
