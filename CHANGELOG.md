@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 This file is used to list changes made in each version of the shifter cookbook.
 
+## 1.0.1
+
+### Added
+
+- munge.service systemd unit dependency
+ 
 ## 1.0.0
 
 ### Added

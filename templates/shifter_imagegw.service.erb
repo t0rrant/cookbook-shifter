@@ -1,6 +1,6 @@
 [Unit]
 Description=Shifter Image Manager
-After=network.target # munge.service # consider munge dependency **after** splitting the munge recipe from the slurm cookbook
+After=munge.service
 
 [Service]
 Type=simple
