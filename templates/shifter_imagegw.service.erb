@@ -10,11 +10,7 @@ Type=simple
 # PrivateTmp=true
 Environment=PYTHONPATH=<%= @shifter_udiroot_dir %>/lib/python2.7/site-packages/
 # ExecStartPre=/usr/bin/chown shifter:shifter /var/log/shifter_imagegw
-ExecStart=+/usr/bin/gunicorn \
--b 0.0.0.0:5000 --backlog 2048 \
---access-logfile=<%= @imagegw_log_dir %>/access.log \
---log-file=<%= @imagegw_log_dir %>/error.log \
-shifter_imagegw.api:app
+ExecStart=+/usr/bin/gunicorn -b 0.0.0.0:5000 --backlog 2048 --access-logfile=<%= @imagegw_log_dir %>/access.log --log-file=<%= @imagegw_log_dir %>/error.log shifter_imagegw.api:app
 RestartSec=2
 Restart=on-failure
 
