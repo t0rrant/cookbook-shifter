@@ -31,6 +31,7 @@ module ShifterCookbook
             libjson-c2
             libmunge2
             libmunge-dev
+            libslurm-dev
             libcurl4-openssl-dev
             autoconf
             automake
@@ -50,6 +51,7 @@ module ShifterCookbook
             libjson-c3
             libmunge2
             libmunge-dev
+            libslurm-dev
             libcurl4-openssl-dev
             autoconf
             automake
@@ -72,6 +74,7 @@ module ShifterCookbook
             libjson-c2
             libmunge2
             libmunge-dev
+            libslurm-dev
             libcurl4-openssl-dev
             autoconf
             automake
@@ -91,6 +94,7 @@ module ShifterCookbook
             libjson-c3
             libmunge2
             libmunge-dev
+            libslurm-dev
             libcurl4-openssl-dev
             autoconf
             automake
@@ -111,6 +115,7 @@ module ShifterCookbook
             glibc-devel
             munge
             libcurl-devel
+            slurm-devel
             json-c
             json-c-devel
             pam-devel

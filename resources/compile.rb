@@ -15,6 +15,18 @@ property :imagegw_fqdn, [nil, String], default: nil
 action :install do
   required_packages.each(&method(:package))
 
+  link '/usr/include/slurm' do
+    to '/usr/include/slurm-wlm'
+    only_if { ::File.directory?('/usr/include/slurm-wlm') }
+  end
+
+  link '/usr/include/slurm' do
+    to '/usr/include/slurm-lln'
+    only_if { ::File.directory?('/usr/include/slurm-lln') }
+  end
+
+  ::Chef::Log::Warning('/usr/include/slurm does not exist!') if !::File.directory?('/usr/include/slurm') && new_resource.with_slurm
+
   directory new_resource.udiroot do
     owner 'root'
     group 'root'
