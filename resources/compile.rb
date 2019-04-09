@@ -30,7 +30,7 @@ action :install do
     mode '0755'
     recursive true
     action :create
-    not_if { ::File.directory?(new_resource.udiroot) }
+    not_if { ::File.directory?("#{new_resource.udiroot}/libexec/shifter/opt/udiImage") }
   end
 
   directory '/usr/libexec/shifter' do
