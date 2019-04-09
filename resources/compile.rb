@@ -25,7 +25,7 @@ action :install do
     only_if { ::File.directory?('/usr/include/slurm-lln') }
   end
 
-  ::Chef::Log::Warning('/usr/include/slurm does not exist!') if !::File.directory?('/usr/include/slurm') && new_resource.with_slurm
+  ::Chef::Log.warn('/usr/include/slurm does not exist!') if !::File.directory?('/usr/include/slurm') && new_resource.with_slurm
 
   directory new_resource.udiroot do
     owner 'root'
