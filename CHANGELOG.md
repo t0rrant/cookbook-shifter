@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 This file is used to list changes made in each version of the shifter cookbook.
 
+## 1.0.7
+
+### Fixed
+
+- Chef logging
+
 ## 1.0.6
 
 ### Added
