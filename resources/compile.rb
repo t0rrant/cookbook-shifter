@@ -24,6 +24,15 @@ action :install do
     not_if { ::File.directory?(new_resource.udiroot) }
   end
 
+  directory "#{new_resource.udiroot}/libexec/shifter/opt/udiImage" do
+    owner 'root'
+    group 'root'
+    mode '0755'
+    recursive true
+    action :create
+    not_if { ::File.directory?(new_resource.udiroot) }
+  end
+
   directory '/usr/libexec/shifter' do
     owner 'root'
     group 'root'
@@ -76,7 +85,8 @@ action :install do
       postmount_sh: "#{new_resource.config_dir}/postmount.sh",
       shifter_etc_files: new_resource.shifter_etc_files,
       system_name: system_name,
-      imagegw_fqdn: new_resource.imagegw_fqdn || node['fqdn']
+      imagegw_fqdn: new_resource.imagegw_fqdn || node['fqdn'],
+      udiImage: "#{new_resource.udiroot}/libexec/shifter/opt/udiImage"
     )
   end
 

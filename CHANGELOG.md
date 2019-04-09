@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 This file is used to list changes made in each version of the shifter cookbook.
 
+## 1.0.4
+
+### Fixed
+
+- `/etc/shifter/udiRoot.conf` udiImage
+
+### Added
+
+- `/opt/shifter/udiRoot/libexec/shifter/opt/udiImage` creation
+
 ## 1.0.3
 
 ### Fixed
