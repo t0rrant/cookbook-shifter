@@ -3,6 +3,11 @@ driver:
 
 provisioner:
   name: chef_zero
+  product_name: chef
+  product_version: 14.12.9
+  client_rb:
+    diff_disabled: true
+    chef_license: "accept-silent"
   always_update_cookbooks: true
 
 verifier:
