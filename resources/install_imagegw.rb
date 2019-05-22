@@ -74,7 +74,7 @@ action :install do
     source 'shifter_imagegw.service.erb'
     cookbook new_resource.cookbook
     variables(
-      shifter_udiroot_dir: new_resource.udiroot_dir,
+      shifter_udiroot_dir: new_resource.udiroot,
       imagegw_log_dir: new_resource.imagegw_log_dir
     )
   end
