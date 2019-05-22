@@ -24,7 +24,7 @@ action :install do
     version new_resource.version
     with_slurm new_resource.with_slurm
     slurm_dir new_resource.slurm_dir
-    system_name new_resource.shifter_system_name
+    system_name new_resource.system_name
     extract_dir new_resource.extract_dir
     imagegw_fqdn new_resource.imagegw_fqdn
     not_if { ::File.exist?(new_resource.udiroot + '/bin/shifterimg') }
@@ -66,7 +66,7 @@ action :install do
       image_dir: new_resource.image_path,
       expand_dir: new_resource.expand_path,
       cache_dir: "#{new_resource.image_path}/cache",
-      system_name: system_name
+      system_name: new_resource.system_name
     )
   end
 
@@ -74,7 +74,7 @@ action :install do
     source 'shifter_imagegw.service.erb'
     cookbook new_resource.cookbook
     variables(
-      shifter_udiroot_dir: shifter_udiroot_dir,
+      shifter_udiroot_dir: new_resource.udiroot_dir,
       imagegw_log_dir: new_resource.imagegw_log_dir
     )
   end

@@ -225,7 +225,7 @@ module ShifterCookbook
     end
 
     def shifter_system_name
-      node['hostname']
+      node['shifter']['system'] || node['hostname']
     end
 
     def systemd_service_dir
