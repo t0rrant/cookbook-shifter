@@ -224,12 +224,12 @@ module ShifterCookbook
       '/var/opt/shifter/images'
     end
 
-    def systemd_service_dir
-      '/etc/systemd/system/'
+    def shifter_system_name
+      node['hostname']
     end
 
-    def system_name
-      node['hostname']
+    def systemd_service_dir
+      '/etc/systemd/system/'
     end
   end
 end

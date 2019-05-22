@@ -9,6 +9,7 @@ property :udiroot, String, default: lazy { shifter_udiroot_dir }
 property :git_repo, String, default: lazy { shifter_git_repo }
 property :version, String, default: lazy { shifter_version_stable }
 property :shifter_etc_files, String, default: lazy { shifter_etc_files_dir }
+property :system_name, String, default: lazy { shifter_system_name }
 property :image_path, String, default: lazy { shifter_image_dir }
 property :imagegw_fqdn, [nil, String], default: nil
 
@@ -96,7 +97,7 @@ action :install do
       premount_sh: "#{new_resource.config_dir}/premount.sh",
       postmount_sh: "#{new_resource.config_dir}/postmount.sh",
       shifter_etc_files: new_resource.shifter_etc_files,
-      system_name: system_name,
+      system_name: new_resource.system_name,
       imagegw_fqdn: new_resource.imagegw_fqdn || node['fqdn'],
       udiImage: "#{new_resource.udiroot}/libexec/shifter/opt/udiImage"
     )

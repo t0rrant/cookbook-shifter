@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 This file is used to list changes made in each version of the shifter cookbook.
 
+## 1.0.8
+
+### Added
+
+- system_name property, which allows for compute nodes to pull and use images
+
 ## 1.0.7
 
 ### Fixed
