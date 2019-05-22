@@ -225,7 +225,7 @@ module ShifterCookbook
     end
 
     def shifter_system_name
-      node['shifter']['system'] || node['hostname']
+      (!node['shifter'].nil? && !node['shifter']['system'].nil?) ? node['shifter']['system'] : node['hostname']
     end
 
     def systemd_service_dir
