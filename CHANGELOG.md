@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 This file is used to list changes made in each version of the shifter cookbook.
 
+## 1.1.0
+
+### Added
+
+- shifterimg symlink to shifter installations as we want to able to issue image pulls from external nodes
+
+### Changed
+
+- binary links from install_imagegw to install, as the imagegw is but a service
+
 ## 1.0.11
 
 ### Fixed

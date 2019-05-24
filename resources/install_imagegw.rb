@@ -84,10 +84,6 @@ action :install do
     action :run
   end
 
-  link '/usr/bin/shifterimg' do
-    to "#{new_resource.udiroot}/bin/shifterimg"
-  end
-
   service 'MongoDB Service' do
     service_name 'mongodb'
     supports restart: true, status: true
@@ -128,11 +124,6 @@ action :uninstall do
   end
 
   file "#{new_resource.config_dir}/imagemanager.json" do
-    action :delete
-  end
-
-  link '/usr/bin/shifterimg' do
-    to "#{new_resource.udiroot}/bin/shifterimg"
     action :delete
   end
 end
