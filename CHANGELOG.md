@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 This file is used to list changes made in each version of the shifter cookbook.
 
+## 1.2.0
+
+### Added
+
+- new argument `siteenv_append` to allow for customized Environment Variables within the containers.
+
+### Fixed
+
+- wrong directory name
+
 ## 1.1.0
 
 ### Added

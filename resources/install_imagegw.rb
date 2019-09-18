@@ -14,6 +14,7 @@ property :image_path, String, default: lazy { shifter_image_dir }
 property :expand_path, String, default: lazy { shifter_expand_dir }
 property :imagegw_fqdn, [nil, String], default: nil
 property :imagegw_log_dir, String, default: '/var/log/shifter_imagegw'
+property :siteenv_append, String, default: 'PATH=/opt/udiImage/bin'
 
 action :install do
   shifter_compile 'shifter_install' do
@@ -27,6 +28,7 @@ action :install do
     system_name new_resource.system_name
     extract_dir new_resource.extract_dir
     imagegw_fqdn new_resource.imagegw_fqdn
+    siteenv_append new_resource.siteenv_append
     not_if { ::File.exist?(new_resource.udiroot + '/bin/shifterimg') }
   end
 

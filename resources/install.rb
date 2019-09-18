@@ -12,6 +12,7 @@ property :shifter_etc_files, String, default: lazy { shifter_etc_files_dir }
 property :system_name, String, default: lazy { shifter_system_name }
 property :image_path, String, default: lazy { shifter_image_dir }
 property :imagegw_fqdn, [nil, String], default: nil
+property :siteenv_append, String, default: 'PATH=/opt/udiImage/bin'
 
 action :install do
   shifter_compile 'Compile and Install Shifter components' do
@@ -25,6 +26,7 @@ action :install do
     system_name new_resource.system_name
     extract_dir new_resource.extract_dir
     imagegw_fqdn new_resource.imagegw_fqdn
+    siteenv_append new_resource.siteenv_append
     not_if { ::File.exist?(new_resource.udiroot + '/bin/shifter') }
   end
 

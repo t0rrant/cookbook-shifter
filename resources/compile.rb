@@ -12,6 +12,7 @@ property :shifter_etc_files, String, default: lazy { shifter_etc_files_dir }
 property :system_name, String, default: lazy { shifter_system_name }
 property :image_path, String, default: lazy { shifter_image_dir }
 property :imagegw_fqdn, [nil, String], default: nil
+property :siteenv_append, String, default: 'PATH=/opt/udiImage/bin'
 
 action :install do
   required_packages.each(&method(:package))
@@ -22,8 +23,8 @@ action :install do
   end
 
   link '/usr/include/slurm' do
-    to '/usr/include/slurm-lln'
-    only_if { ::File.directory?('/usr/include/slurm-lln') }
+    to '/usr/include/slurm-llnl'
+    only_if { ::File.directory?('/usr/include/slurm-llnl') }
   end
 
   ::Chef::Log.warn('/usr/include/slurm does not exist!') if !::File.directory?('/usr/include/slurm') && new_resource.with_slurm
@@ -99,7 +100,8 @@ action :install do
       shifter_etc_files: new_resource.shifter_etc_files,
       system_name: new_resource.system_name,
       imagegw_fqdn: new_resource.imagegw_fqdn || node['fqdn'],
-      udiImage: "#{new_resource.udiroot}/libexec/shifter/opt/udiImage"
+      udiImage: "#{new_resource.udiroot}/libexec/shifter/opt/udiImage",
+      siteenv_append: new_resource.siteenv_append
     )
   end
 
